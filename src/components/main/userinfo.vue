@@ -105,10 +105,12 @@ export default {
     //点击返回
     back() {
       this.$router.push({ path: "/appCom" });
+
     },
 
     //登录接口
     login() {
+      // this.$eventHub.$emit("sub",{bool:false})
       var data = {
         uname: this.uname,
         upwd: this.upwd
@@ -161,7 +163,7 @@ export default {
       border-left: r(2) solid;
       border-bottom: r(2) solid;
       transform: rotate(45deg);
-      color: #fff;
+      color: #fff; 
     }
   }
   .p1 {

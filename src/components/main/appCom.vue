@@ -125,7 +125,6 @@ export default {
       tabActive: 0,
       //tab魔法猜心数据
       tabClass: ["送恋人", "送挚友", "送长者", "送亲子"],
-
       icoImgList: [
         {
           name: "宠爱少女",
@@ -153,7 +152,6 @@ export default {
       this.CakeList = res; //八个图标
     });
   },
-
   methods: {
     // 首页加入购物车
     add(e,item){
@@ -185,13 +183,11 @@ export default {
         }
       });
     },
-
     // SupplyNo: "NS-0119-11" 宠爱少女
     // SupplyNo: "KSK-0001-1" 魔法猜心
     // SupplyNo: "KSK-0001-1" 品质甄选
     // SupplyNo: "RP-0005-59" 乳品
     // SupplyNo: "JZ-0020-5"  伴手礼
-
     //图片焦点图跳转详情页
     toShow(item) {
       var data = {
@@ -204,7 +200,6 @@ export default {
         query: { key: data.key, c: data.c }
       });
     },
-
     setTab(index) {
       // console.log(key);
       var activeList = []; //自己定义的
@@ -221,7 +216,6 @@ export default {
       this.activeList = activeList.slice(0, 3);
       this.tabActive = index;
     },
-
     // ----------接口部分
     joke(callback) {
       var data = {
@@ -247,9 +241,7 @@ export default {
         // this.CakeList = res.data.Tag.iconList;  //icon图标
         callback(res.data.Tag.iconList);
         // console.log(res.data.Tag.list)
-
         // 魔法猜心 所有 和品质甄选 所有
-
         res.data.Tag.list.forEach(el => {
           if (el.TabType == 5) {
             this.Cakeinfo.push(el); //品质甄选 所有
@@ -275,7 +267,6 @@ function flay(e,img) {
   var oBtn = $(".cart").offset();
   var newdh = oBtn.top - top;
   //  console.dir(flyer);
-
   flyer.fly({
     start: {
       left: event.pageX, //抛物体起点横坐标
@@ -388,7 +379,6 @@ function flay(e,img) {
       .pinzhi-detail {
         width: r(160);
         height: r(88);
-
         .pinzhi-tip > img {
           height: r(16);
           margin-left: 0;
@@ -425,7 +415,6 @@ function flay(e,img) {
         }
       }
     }
-
     .imgClass {
       display: flex;
       justify-content: space-between;
@@ -475,6 +464,3 @@ function flay(e,img) {
   
 }
 </style>
-
-
-

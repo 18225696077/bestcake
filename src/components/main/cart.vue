@@ -42,31 +42,13 @@
               :src="item.img"
               @click="toShow(item)"
             >
-            <p class="p">伴手礼系列-吉致生巧</p>
+            <p class="p">{{item.Name}}</p>
             <div class="jiah">
-              <span class="jiah1">168.00</span>
-              <span class="jiah2">/1盒</span>
-              <img class="bao" src="https://res.bestcake.com/m-images/order/mw_firm_gwc.jpg">
+              <span class="jiah1">{{item.price}}</span>
+              <span class="jiah2">/{{item.Size}}</span>
+              <img class="bao" src="https://res.bestcake.com/m-images/order/mw_firm_gwc.jpg" @click="add(item)">
             </div>
           </li>
-          <!-- <li class="li1" >
-            <img class="imgs"  src="https://res.bestcake.com/m-images/cart/mw_firm_nzt_v1.jpg" v-for="(item,index) in cartList" :key="index" @click="toShow(item)">
-            <p class="p">伴手礼系列-吉致牛轧糖</p>
-            <div class="jiah">
-              <span class="jiah1">68.00</span>
-              <span class="jiah2">/16粒装</span>
-              <img class="bao" src="https://res.bestcake.com/m-images/order/mw_firm_gwc.jpg">
-            </div>
-          </li>
-           <li class="li1" >
-            <img class="imgs" v-for="(item,index) in cartList" :key="index"  src="https://res.bestcake.com/m-images/cart/mw_firm_pf_v1.jpg" @click="toShow(item)">
-            <p class="p">伴手礼系列-吉致泡芙</p>
-            <div class="jiah">
-              <span class="jiah1">88.00</span>
-              <span class="jiah2">/0.8磅</span>
-              <img class="bao" src="https://res.bestcake.com/m-images/order/mw_firm_gwc.jpg">
-            </div>
-          </li>-->
         </ul>
       </div>
     </div>
@@ -102,6 +84,7 @@
 </template>
 
 <script>
+
 import { MessageBox } from "mint-ui";
 export default {
   name: "HelloWorld",
@@ -164,7 +147,12 @@ export default {
           this.cartList = cartList.slice(2, 5);       
         }
       });this.cartList.forEach((el,index)=>{
-        el.img=`https://res.bestcake.com/m-images/jz-detail/${el.Name}/${el.Name}-2.jpg`
+        // *******************************
+        //拼接数据
+        el.img=`https://res.bestcake.com/m-images/jz-detail/${el.Name}/${el.Name}-4.jpg` //拼接字符串
+        el.price=el.CurrentPrice;
+        el.Name=el.Name;
+        el.Size=el.Size
       })
       console.log(this.cartList);
 
@@ -213,20 +201,26 @@ export default {
     jiesuan() {
       this.$router.push({ path: "/userinfo" });
     },
-
-    //跳转
-    // toShow(item) {
-    //   var data = {
-    //     key: item.Name || item.key, //拿到名字
-    //     c: item.SupplyNo || "NS",
-    //   };
-    //   // router ****
-    //   this.$router.push({
-    //     path: "/show",
-    //     query: { key: data.key, c: data.c }
-    //   });
-    // },
-
+    add(item){
+      console.log(item);
+      var data={
+        Pid: item.ID,
+        Name:item.Name,
+        eName:'',
+        SupplyNo:item.SupplyNo,
+        num:1,
+        price:item.CurrentPrice,
+        ImgUrl:`https://res.bestcake.com/m-images/jz-detail/${item.Name}/${item.Name}-4.jpg`,
+        Size:item.Size,
+        to:"/details"+item.Imglink,
+        Brand:item.Brand,
+        bool:false
+      }
+     this.$store.commit('add',data);  
+     MessageBox.alert(item.Name+'已加入购物车').then(action => {
+        });
+    },
+    
     GetJdListNew(callback) {
       this.$apis.GetJdListNew().then(res => {
         callback(res.data.Tag.cakelist);
@@ -366,7 +360,6 @@ export default {
 }
 .gwc {
   margin-top: r(55);
-  margin-left: r(12);
   .gwc-hr {
     width: r(308);
     height: r(50);
@@ -462,10 +455,11 @@ export default {
   display: flex;
   flex-wrap: wrap;
   .li1 {
-    padding: 0 r(8);
     width: r(135) !important;
     height: r(240);
+    padding: 0 r(12);
     .imgs {
+     
       width: r(145);
       height: r(145);
     }
@@ -488,10 +482,10 @@ export default {
         color: #333;
       }
       .bao {
-        width: r(20);
-        height: r(20);
+        width: r(18);
+        height: r(18);
         margin: r(-8) r(0) 0;
-        padding-left: r(40);
+        padding-left: r(50);
       }
     }
     .bao1 {

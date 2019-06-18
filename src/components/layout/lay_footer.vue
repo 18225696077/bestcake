@@ -5,7 +5,8 @@
        <img :src="Active==index?item.img1:item.img2" @click="tiaozhuan(index)">
        <!-- :class="listIndex===index? 'active':''" -->
      </router-link>
-        
+        <span class="cart"></span>
+        <span class="cart1" v-show="!$store.state.shopCart.list.length==0">{{$store.state.shopCart.list.length}}</span>
     </div>
       
   </div>
@@ -77,6 +78,12 @@ export default {
       position: absolute;
       left:r(200);
       top:r(-2);
+    }
+    .cart{
+      position: absolute;
+      left:r(180);
+      top:r(-2);
+    
     }
   }
 </style>
